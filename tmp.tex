@@ -1,0 +1,270 @@
+\documentclass[UTF8]{ctexart}
+\usepackage{geometry}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{array}
+\newcommand{\PreserveBackslash}[1]{\let\temp=\\#1\let\\=\temp}
+\newcolumntype{C}[1]{>{\PreserveBackslash\centering}p{#1}}
+\newcolumntype{R}[1]{>{\PreserveBackslash\raggedleft}p{#1}}
+\newcolumntype{L}[1]{>{\PreserveBackslash\raggedright}p{#1}}
+% \author{ARZhu}
+\author{\zihao{-3}Luckyblock友情搬运}
+\title{\zihao{2}数据删除信息竞赛（数据删除）}
+\date{2020.9.27}
+\geometry{left=3.18cm,right=3.18cm,top=2.54cm,bottom=2.54cm}
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+\begin{center}
+\zihao{-3}\textbf{（请选手务必仔细阅读本页内容）}
+\end{center}
+
+\textbf{一、题目概况}
+\begin{center}
+\begin{tabular}{*{4}{|C{9em}}|}
+\hline
+    中文题目名称 &东风谷早苗 &电话线 &摆渡车 \\ \hline
+    英文题目与子目录名 &sanae  &telephone  &bus  \\ \hline
+    可执行文件名 &sanae.exe  &telephone.exe  &bus.exe \\ \hline
+    输入文件名 & sanae.in & telephone.in & bus.in \\ \hline
+    输出文件名 &　sanae.out & telephone.out & bus.out \\ \hline
+    每个测试点时限 & 1s & 1s & 2s \\ \hline
+    内存上限 & 128M & 128M & 256M \\ \hline
+    测试点数目 & 10 & 13 & 20 \\ \hline
+    每个测试点分值 & 10 & 不等 &5 \\ \hline
+    附加样例文件 & 无 & 无 & 无 \\ \hline
+    结果比较方式 & \multicolumn{3}{|c|}{全文比较（过滤行末空格及文末回车）} \\ \hline
+    题目类型 & 传统 & 传统 & 传统 \\ \hline
+
+\end{tabular}
+\end{center}
+
+\textbf{二、提交源程序程序名}
+\begin{center}
+\begin{tabular}{*{4}{|C{9em}}|}
+\hline
+    对于C++语言 & sanae.cpp & telephone.cpp & bus.cpp \\ \hline
+\end{tabular}
+\end{center}
+
+%\textbf{三、优化开关}
+%\begin{center}
+%\begin{tabular}{*{4}{|C{9em}}|}
+%\hline
+%    对于C++语言 & -O2\ -lm	& -O2\ -lm & -O2\ -lm \\ \hline
+%    对于C语言 & -O2\ -lm & -O2\ -lm & -O2\ -lm \\ \hline
+%    对于pascal语言 & -O2 & -O2 & -O2 \\ \hline
+%\end{tabular}
+%\end{center}
+
+\textbf{注意事项：}
+\begin{enumerate}
+    \item{文件名（程序名和输入输出文件名）必须使用英文小写。}
+    \item{C++中函数main()的返回类型必须是int，程序正常结束时的返回值必须是0。}
+    \item{评测时采用的机器配置为：CPU AMD Athlon II X2 260，内存1G，上述时限以此配置为准。}
+\end{enumerate}
+
+\newpage
+\setcounter{page}{1}
+\pagestyle{plain}
+\pagenumbering{arabic}
+
+% T1
+\newpage
+\section{东风谷早苗}
+\begin{center}
+\tt\large{(sanae.cpp)}
+\end{center}
+\subsection{问题描述}
+
+在幻想乡，东风谷早苗是以高达控闻名的高中生宅巫女。   
+
+某一天，早苗终于入手了最新款的钢达姆模型。作为最新的钢达姆，当然有了与以往不同的功能了，那就是它能够自动行走，厉害吧（好吧，我自重）。  
+
+早苗的新模型可以按照输入的命令进行移动，命令包含’E’、’S’、’W’、’N’四种，分别对应四个不同的方向，依次为东、南、西、北。  
+
+执行某个命令时，它会向着对应方向移动一个单位。作为新型机器人，自然不会只单单执行一个命令，它可以执行命令串。对于输入的命令串，每一秒它会按照命令行动一次。而执行完命令串最后一个命令后，会自动从头开始循环。  
+
+向东移动，坐标改变改变为 $(X+1,Y)$;  
+
+向南移动，坐标改变改变为 $(X,Y-1)$;  
+
+向西移动，坐标改变改变为 $(X-1,Y)$;   
+
+向北移动，坐标改变改变为 $(X,Y+1)$;  
+
+在0时刻时早苗将钢达姆放置在了(0,0)的位置，并且输入了命令串。她想要知道T秒后钢达姆所在的位置坐标。
+
+\subsection{输入}
+
+第1行：一个字符串，表示早苗输入的命令串，保证至少有1个命令。  
+
+第2行：一个正整数 $T$。
+
+\subsection{输出}
+
+第1行：两个整数，表示 $T$ 秒时，钢达姆的坐标。
+
+\subsection{输入输出样例1}
+\subsubsection{输入样例}
+
+NSWWNSNEEWN
+
+12
+
+\subsubsection{输出样例}
+
+-1 3
+
+\subsection{约定和数据范围}
+
+对于60\%的数据：$T \le 5\times 10^5$ 且命令串长度 $\le 5000$。
+
+对于100\%的数据：$T \le 2\times 10^9$ 且命令串长度 $\le 5000$。
+
+% T2
+\newpage
+\section{电话线}
+\begin{center}
+\tt\large{(telephone.cpp)}
+\end{center}
+\subsection{问题描述}
+
+地震使得人间之里的电话线全部损坏，河城荷取是负责接到人间之里的负责人。  
+
+该地区周围分布着 $n$ 个废弃的电话线杆，编号为 $1\dots n$。  
+任意两根线杆之间没有电话线连接，共有 $p$ 对电话杆可以拉电话线。  
+其他的由于地震使得无法连接。
+
+第i对电线杆的两个端点分别是 $a_{i}$, $b_{i}$，它们的距离为 $l_i$。数据中每对 $(a_i,b_i)$只出现一次。  
+
+编号为 $1$ 的电话杆已经接入了电话网络，整个人间之里的电话线全都连到了编号$n$ 的电话线杆上。也就是说，荷取的任务仅仅是找一条将 $1$ 号和 $n$ 号电线杆连起来的路径，其余的电话杆并不一定要连入电话网络。
+
+幽香决定支援灾区免费为人间之里连接k对由荷取指定的电话线杆，对于此外的那些电话线，需要为它们付费，总费用决定于其中最长的电话线的长度(每根电话线仅连接一对电话线杆)。若需要连接的电话线杆不超过k对，那么支出为0.
+
+请你计算一下，最少需要在电话线上花多少钱？
+
+\subsection{输入}
+
+输入文件的第一行包含三个数字 $n,p,k$。
+
+第二行到第 $p+1$ 行，每行分别都为三个整数 $ai,bi,li$。
+
+\subsection{输出}
+
+一个整数，表示该项工程的最小支出，如果不可能完成则输出 -1。
+
+\subsection{输入输出样例1}
+\subsubsection{输入样例}
+
+5 7 1
+
+1 2 5
+
+3 1 4
+
+2 4 8
+
+3 2 3
+
+5 2 9
+
+3 4 7
+
+4 5 6
+
+\subsubsection{输出样例}
+
+4
+
+
+\subsection{约定和数据范围}
+
+对于 $28\%$ 的数据，$1\le n \le 10$。  
+
+对于 $35\%$ 的数据，$1\le n\le 150$。
+
+对于 $100\%$ 的数据，$1\le n\le 1000,1\le p\le 10^4,1\le l_i\le 10^6$。
+
+% T3
+\newpage
+\section{摆渡车}
+\begin{center}
+\tt\large{(bus.cpp)}
+\end{center}
+\subsection{问题描述}
+
+有 $n$ 名同学要乘坐摆渡车从人大附中前往人民大学，第 $i$ 位同学在第 $t_i$ 分钟去等车。只有一辆摆渡车在工作，但摆渡车容量可以视为无限大。摆渡车从人大附中出发、把车上的同学送到人民大学、再回到人大附中（去接其他同学），这样往返一趟总共花费 $m$ 分钟（同学上下车时间忽略不计）。摆渡车要将所有同学都送到人民大学。
+
+凯凯很好奇，如果他能任意安排摆渡车出发的时间，那么这些同学的等车时间之和最小为多少呢？
+
+注意：摆渡车回到人大附中后可以即刻出发。
+
+\subsection{输入}
+
+第一行包含两个正整数 $n,m$ ，以一个空格分开，分别代表等车人数和摆渡车往返一趟的时间。
+
+第二行包含 $n$ 个正整数，相邻两数之间以一个空格分隔，第 $i$ 个非负整数   $t_i$ 代表第 $i$ 个同学到达车站的时刻。
+
+\subsection{输出}
+
+输出一行，一个整数，表示所有同学等车时间之和的最小值（单位：分钟）。
+
+\subsection{输入输出样例1}
+\subsubsection{输入样例}
+
+5 1 
+
+3 4 4 3 5 
+
+\subsubsection{输出样例}
+
+0
+
+\subsubsection{样例解释1}
+
+同学 1 和同学 4 在第 3 分钟开始等车，等待 0 分钟，在第 3 分钟乘坐摆渡车出发。摆渡车在第 4 分钟回到人大附中。
+
+同学 2 和同学 3 在第 4 分钟开始等车，等待 0 分钟，在第 4 分钟乘坐摆渡车出发。摆渡车在第 5 分钟回到人大附中。
+
+同学 5 在第 5 分钟开始等车，等待 0 分钟，在第 5 分钟乘坐摆渡车出发。
+
+自此所有同学都被送到人民大学。总等待时间为 0。
+
+\subsection{输入输出样例2}
+\subsubsection{输入样例}
+
+5 5 
+
+11 13 1 5 5 
+
+\subsubsection{输出样例}
+
+4
+
+\subsubsection{样例解释2}
+
+同学 3 在第 1 分钟开始等车，等待 0 分钟，在第 1 分钟乘坐摆渡车出发。摆渡车在第 6 分钟回到人大附中。
+
+同学 4 和同学 5 在第 5 分钟开始等车，等待 1 分钟，在第 6 分钟乘坐摆渡车出发。摆渡车在第 11 分钟回到人大附中。
+
+同学 1 在第 11 分钟开始等车，等待 2 分钟；同学 2 在第 13 分钟开始等车， 等待 0 分钟。他/她们在第 13 分钟乘坐摆渡车出发。
+
+自此所有同学都被送到人民大学。总等待时间为 4。
+
+可以证明，没有总等待时间小于 4 的方案。
+
+\subsection{约定和数据范围}
+
+对于 $10\%$ 的数据，$n\le 10,m=1,0\le t_i\le 100$。
+
+对于 $30\%$ 的数据，$n\le 20,m\le 2,0\le t_i\le 100$。
+
+对于 $50\%$ 的数据，$n\le 500,m\le 100,0\le t_i\le 10^4$。
+
+另有 $20\%$ 的数据，$n\le 500,m\le 10,0\le t_i\le 4\times 10^6$。
+
+对于 $100\%$ 的数据，$n\le 500,m\le 100,0\le t_i\le 4\times 10^6$。 
+
+\end{document}
