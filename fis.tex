@@ -30,11 +30,11 @@
     可执行文件名 &str.exe &fuc.exe &stream.exe &not.exe \\ \hline
     输入文件名 &str.in & fuc.in & stream.in &not.in \\ \hline
     输出文件名 &str.out & fuc.out & stream.out &not.out \\ \hline
-    每个测试点时限 &1s & 1s & 1s &2s \\ \hline
+    每个测试点时限 &1s & 1s & 1s &4s \\ \hline
     内存上限 &512M & 16M & 256M &512M \\ \hline
     测试点数目 &10 & 10 & 50 & 10 \\ \hline
     每个测试点分值 &10 & 10 &2 & 10 \\ \hline
-    附加样例文件 &无 & 无 & 有 & 无 \\ \hline
+    附加样例文件 &有 & 有 & 有 & 有 \\ \hline
     结果比较方式 & \multicolumn{3}{|c|}{全文比较（过滤行末空格及文末回车）} \\ \hline
     题目类型 & 传统 & 传统 & 传统 & 传统 \\ \hline
 
@@ -200,7 +200,7 @@ bc
 
 对于40\%的数据，$1\le n \le 5\times 10^4$
 
-对于80\%的数据，$1\le n \le 10^5$
+对于60\%的数据，$1\le n \le 10^5$
 
 对于100\%的数据，$1\le n \le 10^6$， $1\le q\le 3000$，$|a_i| \le 10^9$
 
@@ -339,11 +339,15 @@ JOI 君每天要乘坐一次以上的巴士到达学校。我们可以无视 JOI
 
 \subsection{约定和数据范围}
 
-对于15\%的数据， $N,M\le 2000$
+对于测试点 1 到测试点 10， 满足 $N,M\le2000$ 且 $Q=1$
 
-对于另外35\%的数据， $Q=1$
+对于测试点 11 到测试点 20， 满足 $N,M\le 2000$
 
-对于所有数据， $2\le N\le 10^5,1\le M\le 3\times 10^5,0\le X_i<Y_i<86400000(=24\times 60\times 60\times 1000),1\le Q\le 10^5,0\le L_i<86400000$。
+对于测试点 21 到测试点 35， 满足 $Q=1$
+
+对于全部的测试点， 满足：
+
+$2\le N\le 10^5$， $1\le M\le 3\times 10^5$，$0\le X_i<Y_i<86400000(=24\times 60 \times 60 \times 1000)$, $1\le Q\le 10^5$, $0\le L_i<86400000$
 
 
 
