@@ -1,0 +1,515 @@
+\documentclass[UTF8]{ctexart}
+\usepackage{geometry}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{listings}
+\usepackage{CJKulem}
+\newcommand{\PreserveBackslash}[1]{\let\temp=\\#1\let\\=\temp}
+\newcolumntype{C}[1]{>{\PreserveBackslash\centering}p{#1}}
+\newcolumntype{R}[1]{>{\PreserveBackslash\raggedleft}p{#1}}
+\newcolumntype{L}[1]{>{\PreserveBackslash\raggedright}p{#1}}
+% \author{ARZhu}
+\author{\zihao{-3}菜鸡选手友情搬运}
+\title{\zihao{2}基本知识练习赛}
+\date{2020.11.1}
+\geometry{left=3.18cm,right=3.18cm,top=2.54cm,bottom=2.54cm}
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+\begin{center}
+\zihao{-3}\textbf{（请选手务必仔细阅读本页内容）}
+\end{center}
+
+\textbf{一、题目概况}
+\begin{center}
+\begin{tabular}{*{5}{|C{7em}}|}
+\hline
+    中文题目名称 &字符串 &分段函数 &D流 &动态DP \\ \hline
+    英文题目与子目录名 &str &fuc  &stream &not  \\ \hline
+    可执行文件名 &str.exe &fuc.exe &stream.exe &not.exe \\ \hline
+    输入文件名 &str.in & fuc.in & stream.in &not.in \\ \hline
+    输出文件名 &str.out & fuc.out & stream.out &not.out \\ \hline
+    每个测试点时限 &1s & 1s & 1s &2s \\ \hline
+    内存上限 &512M & 16M & 256M &256M \\ \hline
+    测试点数目 &10 & 10 & 50 & 10 \\ \hline
+    每个测试点分值 &10 & 10 &2 & 10 \\ \hline
+    附加样例文件 &有 & 有 & 有 & 有 \\ \hline
+    结果比较方式 & \multicolumn{3}{|c|}{全文比较（过滤行末空格及文末回车）} \\ \hline
+    题目类型 & 传统 & 传统 & 传统 & 传统 \\ \hline
+
+\end{tabular}
+\end{center}
+
+\textbf{二、提交源程序程序名}
+\begin{center}
+\begin{tabular}{*{5}{|C{7em}}|}
+\hline
+    对于C++语言 & str.cpp & fuc.cpp & stream.cpp &not.cpp \\ \hline
+\end{tabular}
+\end{center}
+
+%\textbf{三、优化开关}
+%\begin{center}
+%\begin{tabular}{*{4}{|C{9em}}|}
+%\hline
+%    对于C++语言 & -O2\ -lm	& -O2\ -lm & -O2\ -lm \\ \hline
+%    对于C语言 & -O2\ -lm & -O2\ -lm & -O2\ -lm \\ \hline
+%    对于pascal语言 & -O2 & -O2 & -O2 \\ \hline
+%\end{tabular}
+%\end{center}
+
+\textbf{三、优化开关}
+\begin{center}
+由于我比较 liang 心， O2 就不开了。
+\end{center}
+
+\textbf{注意事项：}
+\begin{enumerate}
+    \item{文件名（程序名和输入输出文件名）必须使用英文小写。}
+    \item{C++中函数main()的返回类型必须是int，程序正常结束时的返回值必须是0。}
+    \item{评测时采用的机器配置为：没有CPU 内存1kb，上述时限以此配置为准。}
+\end{enumerate}
+
+\newpage
+\setcounter{page}{1}
+\pagestyle{plain}
+\pagenumbering{arabic}
+
+% T1
+\newpage
+\section{字符串}
+\begin{center}
+\tt\large{(str.cpp)}
+\end{center}
+
+\subsection{没啥用的背景}
+
+据说即使证明了 $P=NP$ 或者是 $P\neq NP$， 生活也不会有什么太大的变化。
+
+当然， 这与本题没有什么关系。
+
+\subsection{问题描述}
+
+给定两个字符串 $S$、$T$， 可以选择一个 $S$ 的前缀 $P$ 和一个 $T$ 的后缀 $Q$， 然后把 $Q$ 拼接到 $P$ 后面得到一个新的字符串 $A$， 注意 $P$，$Q$ 可以是空串。
+
+请计算能够得到多少种不同的字符串 $A$。
+
+\subsection{输入} 
+
+共两行， 第一行一个字符串 $S$， 第二行一个字符串 $T$。
+
+\subsection{输出}
+
+共一行一个整数， 表示答案
+
+\subsection{输入输出样例1}
+
+\subsubsection{输入样例}
+
+\begin{lstlisting}
+ab
+bc
+\end{lstlisting}
+
+\subsubsection{输出样例}
+
+\begin{lstlisting}
+8
+\end{lstlisting}
+
+\subsubsection{样例解释1}
+
+可以得到以下字符串：
+
+\begin{lstlisting}
+(null), a, ab, abc, abbc, ac, bc, c
+\end{lstlisting}
+
+共八种。
+
+\subsection{约定和数据范围}
+
+对于10\%的数据， $1\le |S|,|T| \le100$
+
+对于30\%的数据， $1\le |S|,|T| \le 5000$
+
+对于60\%的数据， $1\le |S|,|T| \le 100000$
+
+对于所有数据， $1\le |S|,|T| \le 10^7$， 保证字符串仅包含小写字母。
+
+% T2
+\newpage
+\section{分段函数}
+\begin{center}
+\tt\large{(fuc.cpp)}
+\end{center}
+
+\subsection{没啥用的背景}
+
+据说 $trajan$ 发明的 $spaly$ 比 $tarjan$ 发明的 $splay$ 快很多， 插入删除操作的均摊复杂度均为 $O(n)$ 而常数仅为 $\frac{1}{1145141919810}$ 不仅如此， $spaly$ 还可以实现 $splay$ 不能实现的功能。
+
+为什么如此强大的发明却被埋没了呢？那自然是因为社会的黑暗……不对， 其实是 $spaly$ 的实现过于繁杂， 即使是通常认为最简单的实现也需要使用量子编程语言编写超过 $2^{2^{2^{\cdots}}}$ 行代码。 还有更加困难的，那就是即便是非确定性图灵机也不能承载 $spaly$! 想要使用它，目前仅有的方法是把它放在传说中的黑暗膜法师 —— “vg·菜·tb” 的大脑里。 当然，十分爱惜身体的vgtb卿是不会随便在自己的大脑里运行奇奇怪怪的代码的， 所以目前 $spaly$ 并不可用， 被埋没也就不奇怪了。
+
+当然，这里没有对解答本题有帮助的信息。
+
+\subsection{问题描述}
+
+给定长度为 $n$ 的序列 $a$， 要求回答 $q$ 个询问， 第 $i$ 个询问会给定 $l_i、r_i$， 要求输出 $\max\limits_{l_i\le k \le r_i} \lbrace a_k \rbrace$， 
+
+输出以换行隔开。
+
+\subsection{输入}
+
+第1行：两个数 $n$、$q$， 以空格隔开。
+
+第2行：$n$ 个数， 第 $i$ 个数表示 $a_i$， 以空格隔开
+
+接下来的 $q$ 行：每行 $2$ 个数 $l$、$r$， 以空格隔开， 表示一组询问。
+
+\subsection{输出}
+
+共 $q$ 行：每行一个数代表询问的答案， 按照输入的询问的顺序给出答案。
+
+\subsection{输入输出样例1}
+
+\subsubsection{输入样例}
+
+\begin{lstlisting}
+5 4
+1 -100 8 10 0
+1 2
+5 5
+2 4
+1 5
+\end{lstlisting}
+
+\subsubsection{输出样例}
+
+\begin{lstlisting}
+1
+0
+10
+10
+\end{lstlisting}
+
+
+\subsection{约定和数据范围}
+
+对于20\%的数据，$1\le n \le 10^3$
+
+对于40\%的数据，$1\le n \le 5\times 10^4$
+
+对于60\%的数据，$1\le n \le 10^5$
+
+对于100\%的数据，$1\le n \le 10^6$， $1\le q\le 3000$，$|a_i| \le 10^9$
+
+
+% T3
+\newpage
+\section{D流}
+\begin{center}
+\tt\large{(stream.cpp)}
+\end{center}
+
+\subsection{没啥用的背景}
+
+WARNING：数据删除残留
+
+\sout{题目不算有趣，不妨来点苏联政治笑话}。
+
+WARNING：数据删除残留
+
+\sout{从前有个}
+
+（数据删除）
+
+当然，这个笑话不是本题的重点。
+
+\subsection{问题描述}
+
+大学生 JOI 君每天乘坐巴士走读。
+
+JOI 君的家和学校都在 IOI 市内。IOI 市内共有 $N$ 个巴士站点，编号为 $1\sim N$ ，离 JOI 家最近的站点为 $1$ 号站点，离大学最近的站点为 $N$ 号站点。
+
+IOI 市内共有 $M$ 辆巴士，每辆巴士一天只跑一次，从某一时刻某一停靠点出发，在某一时刻到达另一个站点。运行途中不可以下车。
+
+JOI 君每天要乘坐一次以上的巴士到达学校。我们可以无视 JOI 君换车的时间，换言之，为了换乘某个时刻从某个停靠点出发的巴士，只需要在该巴士的出发时间或之前到达站点就可以了。此外，多次在某个站点换乘也是可以的。
+
+在这样的条件下，JOI 君想知道自己应该何时从家中出发才能按时赶到学校。然而，学校每天开始上课的时间都不同。在某 $Q$ 天里，每天到达 $N$ 号站点的最晚时间都是已知的，JOI 君想知道，他最晚何时到达 $1$ 号站点才能及时到校。
+
+现在给你巴士的运营信息，以及这 $Q$ 天里每天到达 $N$ 号站点的最晚时间，请你求出每天 JOI 君最晚何时到达 $1$ 号站点。
+
+\subsection{输入}
+
+第一行两个空格分隔的正整数 $N$ 和 $M$ ，表示 IOI 市内有 $N$ 个巴士站点和 $M$ 辆巴士。
+
+接下来 $M$ 行，第 $i$ 行 $(1\le i\le M)$ 有四个空格分隔的整数 $A_i$, $B_i$, $X_i$, $Y_i$ $(1\le A_i,B_i\le N, A_i\neq B_i)$，表示第 $i$ 辆巴士在时刻 $X_i$ 从停靠点 $A_i$ 出发，在时刻 $Y_i$ 到达停靠点 $B_i$ 。时刻从半夜 12 点开始计算，单位为毫秒。
+
+接下来一行一个整数 $Q$ ，含义如题目中所示。
+
+接下来 $Q$ 行，第 $i$ 行 $(1\le i\le Q)$ 有一个整数 $L_i$ ，表示第 $i$ 天最迟 $L_i$ 时刻到达 $N$ 号站点。
+
+\subsection{输出}
+
+输出 $Q$ 行，第 $i$ 行 $(1\le i\le Q)$ 一个整数，表示 JOI 君第 $i$ 天最迟到达 $1$ 号站点的时刻。 如果无法在时限内到达，输出 $-1$ 。
+
+\subsection{输入输出样例1}
+
+
+\subsubsection{输入样例}
+
+\begin{lstlisting}
+5 6
+1 2 10 25
+1 2 12 30
+2 5 26 50
+1 5 5 20
+1 4 30 40
+4 5 50 70
+4
+10
+30
+60
+100
+\end{lstlisting}
+
+
+\subsubsection{输出样例}
+
+\begin{lstlisting}
+-1
+5
+10
+30
+\end{lstlisting}
+
+
+\subsubsection{样例解释1}
+
+无法在时刻 10 之前到达 5 号车站。 为了在时刻 30 到达，您可以在时刻 5 乘坐 4 号车。 为了在时刻 60 到达，您可以执行以下操作。
+
+- 在时刻 10 乘坐 1 号车。
+
+- 在时刻 25 到达 2 号车站，等待 1 ms，转 3 号车。
+
+- 在时刻 50 抵达 5 号车站。
+
+为了在时间 100 到达，您可以执行以下操作。
+
+- 在时刻 30 乘坐 5 号车。
+
+- 在时刻 40 到达 4 号车，等待 10 ms，转 6 号车。
+
+- 在时刻 70 抵达 5 号车站。
+
+\subsection{输入输出样例2}
+\subsubsection{输入样例}
+
+\begin{lstlisting}
+3 8
+1 2 1 5
+1 3 0 1
+1 3 2 8
+2 3 2 3
+2 3 3 4
+2 3 4 5
+2 3 5 6
+2 3 6 7
+6
+3
+4
+5
+6
+7
+8
+\end{lstlisting}
+
+
+\subsubsection{输出样例}
+
+\begin{lstlisting}
+0
+0
+0
+1
+1
+2
+\end{lstlisting}
+
+\subsection{约定和数据范围}
+
+对于测试点 1 到测试点 10， 满足 $N,M\le2000$ 且 $Q=1$
+
+对于测试点 11 到测试点 20， 满足 $N,M\le 2000$
+
+对于测试点 21 到测试点 35， 满足 $Q=1$
+
+对于全部的测试点， 满足：
+
+$2\le N\le 10^5$， $1\le M\le 3\times 10^5$，$0\le X_i<Y_i<86400000(=24\times 60 \times 60 \times 1000)$, $1\le Q\le 10^5$, $0\le L_i<86400000$
+
+
+
+% T4
+\newpage
+\section{动态DP}
+\begin{center}
+\tt\large{(not.cpp)}
+\end{center}
+
+\subsection{没啥用的背景}
+
+来两碗不算很差的鸡汤。
+
+“我其实很怀疑「智商」这概念的提出者自己的智商，他有什么资格来评价其他人的智商？人的能力是多种多样的。用仅仅一个数字就可以评价别人头脑的能力，似乎只是满足了某些人不切实际的妄想。
+”
+
+“我还记得很久以前有人跟我说的话，自己选择的路，跪着也要走完。朋友们，虽然这个世界日益浮躁起来，只要能够为了当时纯粹的梦想和感动坚持努力下去，不管其它人怎么样，我们也能够保持自己的本色走下去。”
+
+感觉到力量了么？那么请用乱搞……不，智慧，愉快地切掉这道题吧。
+
+\subsection{问题描述}
+
+给定一串数， 初始为 $1\sim N$， 再给定 $Q$ 个操作， 每次操作 $i$ 把数组长度变为 $q_i$， 新增的数为上一个操作后的数组的重复。 问 $Q$ 次操作后 $1\sim N$ 每个数出现了多少次。
+
+\subsection{输入}
+
+第一行两个数 $N$、$Q$, 以空格隔开。
+
+接下来 $Q$ 行， 每行一个数 $q_i$。
+
+\subsection{输出}
+
+输出 $N$ 行， 第 $i$ 行表示在最终的数列中数字 $i$ 出现的次数。
+
+\subsection{输入输出样例1}
+
+
+\subsubsection{输入样例}
+
+\begin{lstlisting}
+5 3
+6
+4
+11
+\end{lstlisting}
+
+\subsubsection{输出样例}
+
+\begin{lstlisting}
+3
+3
+3
+2
+0
+\end{lstlisting}
+
+\subsubsection{样例解释1}
+
+第一次操作后，数列变成 $1,2,3,4,5,1$
+
+第二次后数列变成 $1,2,3,4$
+
+第三次后 $1,2,3,4,1,2,3,4,1,2,3$
+
+\subsection{输入输出样例2}
+
+
+\subsubsection{输入样例}
+
+\begin{lstlisting}
+10 10
+9
+13
+18
+8
+10
+10
+9
+19
+22
+27
+\end{lstlisting}
+
+\subsubsection{输出样例}
+
+\begin{lstlisting}
+7
+4
+4
+3
+3
+2
+2
+2
+0
+0
+\end{lstlisting}
+
+\subsection{输入输出样例3}
+
+
+\subsubsection{输入样例}
+
+\begin{lstlisting}
+5 3
+6
+4
+11
+\end{lstlisting}
+
+\subsubsection{输出样例}
+
+\begin{lstlisting}
+3
+3
+3
+2
+0
+\end{lstlisting}
+
+\subsection{输入输出样例4}
+
+
+\subsubsection{输入样例}
+
+\begin{lstlisting}
+10 10
+9
+13
+18
+8
+10
+10
+9
+19
+22
+27
+\end{lstlisting}
+
+\subsubsection{输出样例}
+
+\begin{lstlisting}
+7
+4
+4
+3
+3
+2
+2
+2
+0
+0
+\end{lstlisting}
+
+
+\subsection{约定和数据范围}
+
+对于20\%的数据， $N,Q,q_i \le 10$
+
+对于40\%的数据， $N,Q,q_i \le 10000$
+
+对于所有数据， $1\le N \le 10^5$，$0\le Q \le 10^5$， $1\le q_i \le 10^{18}$
+
+\end{document}
